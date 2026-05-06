@@ -124,6 +124,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (moveDir.sqrMagnitude <= 0.001f)
         {
+            if (isGrounded)
+            {
+                rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+            }
             return;
         }
 
@@ -267,7 +271,7 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity.z
         ).magnitude;
 
-        animator.SetFloat("Speed", speed);
+        animator.SetFloat("Speed", speed, 0.1f, Time.fixedDeltaTime);
         animator.SetBool("isGrounded", isGrounded);
     }
 }
