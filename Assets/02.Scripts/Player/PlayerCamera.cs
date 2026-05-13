@@ -15,6 +15,9 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Camera thirdPersonCam;
     [SerializeField] private Camera firstPersonCam;
 
+    [Header("First Person")]
+    [SerializeField] private Renderer[] hideInFirstPerson;
+
     private bool isFirstPerson = false;
 
     public float minPitch = -25f;
@@ -33,6 +36,11 @@ public class PlayerCamera : MonoBehaviour
 
             thirdPersonCam.gameObject.SetActive(!isFirstPerson);
             firstPersonCam.gameObject.SetActive(isFirstPerson);
+
+            foreach (var r in hideInFirstPerson)
+            {
+                r.enabled = !isFirstPerson;
+            }
         }
     }
 

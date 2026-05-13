@@ -8,6 +8,10 @@ public class PlayerAttack : MonoBehaviour
     public float comboResetTime = 3.0f;
     public float attackCooldown = 0.3f;
 
+    [Header("Sword")]
+    [SerializeField] private SwordDamage swordDamage;
+    [SerializeField] private float swingDuration = 0.5f;
+
     private Animator animator;
     private Rigidbody rb;
     private int comboStep = 0;
@@ -94,6 +98,9 @@ public class PlayerAttack : MonoBehaviour
         int[] hashes = { Hash_Attack1, Hash_Attack2, Hash_Attack3 };
 
         animator.SetTrigger(hashes[comboStep]);
+
+        if (swordDamage != null)
+            swordDamage.ActivateSwing(swingDuration);
 
         lastAttackTime = Time.time;
         comboStep = (comboStep + 1) % 3;
